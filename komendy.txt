@@ -1,0 +1,49 @@
+na początek..
+cd /usr/local/lib
+sudo curl -O https://www.antlr.org/download/antlr-4.9.2-complete.jar
+export CLASSPATH=".:/usr/local/lib/antlr-4.9.2-complete.jar:$CLASSPATH"
+alias antlr4='java -jar /usr/local/lib/antlr-4.9.2-complete.jar'
+alias grun='java org.antlr.v4.gui.TestRig'
+
+chyba kompilowanie
+antlr4 -Dlanguage=Python3 MyGrammer.g4 -visitor -o dist
+
+odpalanie drzewa
+antlr4 -Dlanguage=Python3 MyGrammer.g4    - kompi pythonga
+antlr4 -Dlanguage=Java MyGrammer.g4       - kompi javy
+javac -g *.java
+python main.py                            - odpalanie bonjour
+grun MyGrammer expr -gui note.txt
+
+
+
+linki
+https://stackoverflow.com/questions/31841151/antrl4-cant-get-python-antlr-to-generate-a-graphic-of-the-parse-tree
+
+https://faun.pub/introduction-to-antlr-python-af8a3c603d23
+
+
+
+
+jak stworzyć plik.c
+
+
+Inne tworzenie pliku ll
+java -cp $(ANTLR):output:. Main test.x > test.ll
+
+LLVM
+
+jak stworzyć plik.ll z pliku.c?
+clang -emit-llvm -S plik.c
+
+odpalenie pliku.ll (reprezentacja pośrednia?)
+lli-14 calc.ll
+
+stworzenie pliku.s z czystym asemblerem
+llc-14 plik.ll
+
+odpalenie pliku assemblerowego 
+clang plik.s
+./a.out
+
+

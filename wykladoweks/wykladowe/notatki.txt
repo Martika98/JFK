@@ -1,0 +1,17 @@
+n[0]
+hello
+t=5 gtowe
+t[0]
+i = 5*8+8 gotowe
+write(6.0/7.0) gotowe
+read()
+de = [1.6, 2.7, 3.7] połowicznie
+a = read()
+a = t ok 
+b = 5.9/7.0 ok
+au revoir
+
+do zrobienia:
+-wejście 
+-tablice
+-string

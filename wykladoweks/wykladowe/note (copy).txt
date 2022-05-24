@@ -1,0 +1,15 @@
+n[0]
+hello
+a='slonce'
+t=5.5
+r=4.3
+t[0]
+i = 5*8+8
+write(t/r)
+write("a")
+read(12)
+de = [1.6, 2.7, 3.7]
+a = read()
+a = t
+b = 5.9/7.0
+au revoir

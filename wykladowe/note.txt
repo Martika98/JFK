@@ -1,0 +1,14 @@
+n[0]
+c = "napis"
+hello
+t=5
+t[0]
+i = 5*8+8
+write(6.0/7.0)
+read()
+de = [1.6, 2.7, 3.7]
+a = read()
+a = t ok 
+b = 5.9/7.0 ok
+au revoir
+
