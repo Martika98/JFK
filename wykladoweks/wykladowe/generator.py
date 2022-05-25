@@ -2,6 +2,8 @@ class Generator:
     header_text = ''
     main_text = ''
     reg = 1
+    br = 0
+    bufferstack = []
 
     def what_type(self, type):
         #print(type)
@@ -106,6 +108,13 @@ class Generator:
         leng = len(id_) + 1            
         self.main_text += "%" + str(self.reg) + " = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([" + str(leng) + "] x i8], [" + str(leng) + "] x i8]* @.str, i64 0, i64 0))\n"
         self.reg += 1
+
+    def if_declare(self):
+        self.main_text += ";;;ifstart\n"
+        self.br += 1
+        self.main_text += "br i1 %" + (self.reg - 1) + ", label %true" + self.reg + ", label %false" + self.reg + "\n"
+        self.main_text += "true" + self.br + ":\n"
+        self.bufferstack.push(self.br)
 
     def generate(self):
         txt = ''

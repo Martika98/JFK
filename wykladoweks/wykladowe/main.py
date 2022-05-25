@@ -30,6 +30,21 @@ class MyVisitor(MyGrammerVisitor):
         a = self.visitChildren(ctx)
         return a
 
+    def visitIf(self, ctx):
+        print("visit if")
+        self.generator.if_declare(self)
+        ctx.IF()
+        ctx.statement()
+        return
+
+    def visitEqual(self, ctx):
+        id_, val = self.visit(ctx.id_())
+        id_eq, val_eq = self.visit(ctx.numbers())
+        if val == val_eq:
+            return True
+        else:
+            return False
+
     def visitFunctExpr(self, ctx):
         type_ = ctx.getText()
         id_ = None

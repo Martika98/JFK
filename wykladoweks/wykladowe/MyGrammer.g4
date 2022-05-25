@@ -20,7 +20,13 @@ command :  id_ SBO i = value SBC ASSIGN val = expr #TableChangeComm
         | id_ ASSIGN expr                       # AssignComm
         | id_ ASSIGN table #AssignTableComm
         | table #TableComm
+        | IF statement CBO expr CBC    #If
+        | LOOP numbers CBO expr CBC    #Loop
         ;
+statement:
+      id_ '==' numbers        #Equal
+    | id_ '!=' numbers        #Notequal
+;
 
 table : SBO val = expr table_content SBC          # TableBody
    ;
@@ -63,6 +69,10 @@ BO: '(';
 BC: ')';
 SBO: '[';
 SBC: ']';
+CBO: '{';
+CBC: '}';
+IF: 'if';
+LOOP: 'loop';
 INT  : '-'?[0-9]+;
 REAL : '-'?[0-9]+[.][0-9]+;
 STRING :  '"' ( ~('\\'|'"') )* '"';

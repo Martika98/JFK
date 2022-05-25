@@ -14,6 +14,6 @@ store i32 %1, i32* %k
 %2 = fdiv double %r, %t
 %j = alloca double
 store double %2, double* %j
-%3 = load double, double* %j
+%3 = load double, double* %%j
 %4 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strpd, i32 0, i32 0), double %3)
 ret i32 0 }
