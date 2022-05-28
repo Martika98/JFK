@@ -22,7 +22,6 @@ class MyVisitor(MyGrammerVisitor):
     stack = []
 
     def visitExprComm(self, ctx):
-
         a = self.visitChildren(ctx)
         return a
 
@@ -32,18 +31,37 @@ class MyVisitor(MyGrammerVisitor):
 
     def visitIf(self, ctx):
         print("visit if")
-        self.generator.if_declare(self)
-        ctx.IF()
-        ctx.statement()
+        a = self.visitChildren(ctx)
+        self.generator.if_start()
+        self.generator.if_end()
+        
+        
+        #print(a)
+        #print(str(ctx.s))
+        #print(str(ctx.e))
+        #print(str(ctx.i))
+        #print(str(ctx.n))
+        
+       # self.generator.if_declare(self)
+        #ctx.IF()
+        #ctx.statement()
         return
 
     def visitEqual(self, ctx):
-        id_, val = self.visit(ctx.id_())
-        id_eq, val_eq = self.visit(ctx.numbers())
-        if val == val_eq:
-            return True
-        else:
-            return False
+        print("visit equal")
+        id_, _ = self.visit(ctx.id_())
+        val, _ = self.visit(ctx.if_val())
+        self.generator.icmp_eq(id_, val)
+        print("visit equal end")        
+        return 0
+    
+    def visitNotEqual(self, ctx):
+        print("visit not equal")
+        id_, _ = self.visit(ctx.id_())
+        val, _ = self.visit(ctx.if_val())
+        self.generator.icmp_ne(id_, val)
+        print("visit not equal end")        
+        return 0
 
     def visitFunctExpr(self, ctx):
         type_ = ctx.getText()
@@ -198,6 +216,26 @@ class MyVisitor(MyGrammerVisitor):
             #print(value)
         self.stack.append(('%'+key, type(value)))
         return key, value
+    
+    def visitIfVal(self, ctx):
+        key = ctx.getText()
+        value = None
+        if key in self.variables:
+            value = self.variables[key]
+            #print(value)
+        self.stack.append(('%'+key, type(value)))
+        return key, value
+            
+    def visitNumbers(self, ctx):
+        print('visit numbers')
+        
+        key = ctx.getText()
+        value = None
+        #if key in self.variables:
+         #   value = self.variables[key]
+            #print(value)
+        #self.stack.append(('%'+key, type(value)))
+        return key, value
 
     def visitStrVal(self, ctx):
         text = ctx.getText()
@@ -308,5 +346,5 @@ if __name__ == "__main__":
         print(f".ll file: content:\n,"
               f"{visitor.generator.generate()}")
 
-        with open('Marticzka.ll', 'w') as file:
+        with open('note.ll', 'w') as file:
             file.write(visitor.generator.generate())

@@ -1,4 +1,4 @@
-# Generated from MyGrammer.g4 by ANTLR 4.9.2
+# Generated from MyGrammer.g4 by ANTLR 4.7.2
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .MyGrammerParser import MyGrammerParser
@@ -125,12 +125,21 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyGrammerParser#Notequal.
-    def enterNotequal(self, ctx:MyGrammerParser.NotequalContext):
+    # Enter a parse tree produced by MyGrammerParser#NotEqual.
+    def enterNotEqual(self, ctx:MyGrammerParser.NotEqualContext):
         pass
 
-    # Exit a parse tree produced by MyGrammerParser#Notequal.
-    def exitNotequal(self, ctx:MyGrammerParser.NotequalContext):
+    # Exit a parse tree produced by MyGrammerParser#NotEqual.
+    def exitNotEqual(self, ctx:MyGrammerParser.NotEqualContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#ifbody.
+    def enterIfbody(self, ctx:MyGrammerParser.IfbodyContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#ifbody.
+    def exitIfbody(self, ctx:MyGrammerParser.IfbodyContext):
         pass
 
 
@@ -233,6 +242,15 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyGrammerParser#IfVal.
+    def enterIfVal(self, ctx:MyGrammerParser.IfValContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#IfVal.
+    def exitIfVal(self, ctx:MyGrammerParser.IfValContext):
+        pass
+
+
     # Enter a parse tree produced by MyGrammerParser#StrVal.
     def enterStrVal(self, ctx:MyGrammerParser.StrValContext):
         pass
@@ -242,5 +260,3 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
-
-del MyGrammerParser

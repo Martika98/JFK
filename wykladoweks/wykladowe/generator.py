@@ -2,8 +2,8 @@ class Generator:
     header_text = ''
     main_text = ''
     reg = 1
-    br = 0
-    bufferstack = []
+    br = 1
+    brstack = []
 
     def what_type(self, type):
         #print(type)
@@ -109,13 +109,40 @@ class Generator:
         self.main_text += "%" + str(self.reg) + " = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([" + str(leng) + "] x i8], [" + str(leng) + "] x i8]* @.str, i64 0, i64 0))\n"
         self.reg += 1
 
-    def if_declare(self):
-        self.main_text += ";;;ifstart\n"
-        self.br += 1
-        self.main_text += "br i1 %" + (self.reg - 1) + ", label %true" + self.reg + ", label %false" + self.reg + "\n"
-        self.main_text += "true" + self.br + ":\n"
-        self.bufferstack.push(self.br)
+ #   def if_declare(self, id_):
+  #      self.main_text += ";;;ifstart\n"
+   #     self.br += 1
+    #    self.main_text += "br i1 %" + str(self.reg - 1) + ", label %true" + str(self.reg) + ", label %false" + str(self.reg) + "\n"
+     #   self.main_text += "true" + str(self.br) + ":\n"
+      #  self.bufferstack.append(self.br)
+	
+    def icmp_eq(self, id, value):
+        self.main_text += "%" + str(self.reg) + " = load i32, i32* %" + str(id) + "\n";
+        self.reg += 1
+        self.main_text += "%" + str(self.reg) + " = icmp eq i32 %" + str((self.reg-1)) + ", " + str(value) + "\n";
+        self.reg += 1
+    
+    def icmp_ne(self, id, value):
+        self.main_text += "%" + str(self.reg) + " = load i32, i32* %" + str(id) + "\n";
+        self.reg += 1
+        self.main_text += "%" + str(self.reg) + " = icmp ne i32 %" + str((self.reg-1)) + ", " + str(value) + "\n";
+        self.reg += 1
 
+    def if_start(self):
+        self.br += 1
+        self.main_text += "br i1 %"+str(self.reg-1)+", label %true"+str(self.br)+", label %false"+str(self.br)+"\n";
+        self.main_text += "true"+str(self.br)+":\n";
+        self.brstack.append(self.br);
+
+    def if_end(self):
+        b = self.brstack.pop();
+        self.main_text += "br label %false"+str(b)+"\n";
+        self.main_text += "false"+str(b)+":\n";    
+    
+  #  def if(self, id, value, type):
+  #      self.main_text += f"%{self.reg} = icmp eq {self.what_type(type)} {id}, {value}\n"
+  #      self.reg += 1
+    
     def generate(self):
         txt = ''
         txt += "declare i32 @printf(i8*, ...)\n"

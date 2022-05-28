@@ -5,13 +5,6 @@
 	.type	main,@function
 main:                                   # @main
 # %bb.0:
-	movabsq	$4617765877924338074, %rax      # imm = 0x401599999999999A
-	movq	%rax, -8(%rsp)
-	movabsq	$4616302208045442662, %rax      # imm = 0x4010666666666666
-	movq	%rax, -16(%rsp)
-	movl	$17, -28(%rsp)
-	movabsq	$-4614838538166547248, %rax     # imm = 0xBFF4CCCCCCCCCCD0
-	movq	%rax, -24(%rsp)
 	xorl	%eax, %eax
 	retq
 .Lfunc_end0:

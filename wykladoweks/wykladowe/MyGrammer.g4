@@ -23,10 +23,17 @@ command :  id_ SBO i = value SBC ASSIGN val = expr #TableChangeComm
         | IF statement CBO expr CBC    #If
         | LOOP numbers CBO expr CBC    #Loop
         ;
+        
 statement:
-      id_ '==' numbers        #Equal
-    | id_ '!=' numbers        #Notequal
+      id_ '==' if_val       #Equal
+    | id_ '<>' if_val       #NotEqual
 ;
+
+ifbody:
+      expr
+    | command
+;
+
 
 table : SBO val = expr table_content SBC          # TableBody
    ;
@@ -56,11 +63,15 @@ numbers: INT                                     # IntVal
        | REAL                                    # RealVal
        ;
 
-id_: ID                                      # IdVal;
+id_: ID                                          # IdVal;
+
+if_val: INT					   # IfVal;
 
 string: STRING #StrVal
       ;
 
+EQ: 'eq';
+NEQ: 'noteq';
 HELLO: ('hello'|'bonjour')  ;
 BYE  : ('bye'| 'tata') ;
 ASSIGN: '=';

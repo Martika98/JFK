@@ -1,4 +1,4 @@
-# Generated from MyGrammer.g4 by ANTLR 4.9.2
+# Generated from MyGrammer.g4 by ANTLR 4.7.2
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .MyGrammerParser import MyGrammerParser
@@ -74,8 +74,13 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyGrammerParser#Notequal.
-    def visitNotequal(self, ctx:MyGrammerParser.NotequalContext):
+    # Visit a parse tree produced by MyGrammerParser#NotEqual.
+    def visitNotEqual(self, ctx:MyGrammerParser.NotEqualContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyGrammerParser#ifbody.
+    def visitIfbody(self, ctx:MyGrammerParser.IfbodyContext):
         return self.visitChildren(ctx)
 
 
@@ -131,6 +136,11 @@ class MyGrammerVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MyGrammerParser#IdVal.
     def visitIdVal(self, ctx:MyGrammerParser.IdValContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyGrammerParser#IfVal.
+    def visitIfVal(self, ctx:MyGrammerParser.IfValContext):
         return self.visitChildren(ctx)
 
 
