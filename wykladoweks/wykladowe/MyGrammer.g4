@@ -20,16 +20,25 @@ command :  id_ SBO i = value SBC ASSIGN val = expr #TableChangeComm
         | id_ ASSIGN expr                       # AssignComm
         | id_ ASSIGN table #AssignTableComm
         | table #TableComm
-        | IF statement CBO expr CBC    #If
-        | LOOP numbers CBO expr CBC    #Loop
+        | IF statement CBO body CBC    #If
+        | LOOP repetitions CBO body CBC    #Loop
+        | FUN funparam CBO body CBC #Fun
         ;
-        
+
+funparam: ID
+;
+
+repetitions:
+         ID
+       | INT
+;
+  
 statement:
       id_ '==' if_val       #Equal
     | id_ '<>' if_val       #NotEqual
 ;
 
-ifbody:
+body:
       expr
     | command
 ;

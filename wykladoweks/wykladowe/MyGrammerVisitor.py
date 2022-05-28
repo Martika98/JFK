@@ -69,6 +69,11 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MyGrammerParser#repetitions.
+    def visitRepetitions(self, ctx:MyGrammerParser.RepetitionsContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MyGrammerParser#Equal.
     def visitEqual(self, ctx:MyGrammerParser.EqualContext):
         return self.visitChildren(ctx)
@@ -79,8 +84,8 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyGrammerParser#ifbody.
-    def visitIfbody(self, ctx:MyGrammerParser.IfbodyContext):
+    # Visit a parse tree produced by MyGrammerParser#body.
+    def visitBody(self, ctx:MyGrammerParser.BodyContext):
         return self.visitChildren(ctx)
 
 

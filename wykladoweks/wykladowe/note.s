@@ -4,7 +4,8 @@
 	.p2align	4, 0x90
 	.type	main,@function
 main:                                   # @main
-# %bb.0:
+# %bb.0:                                # %false2
+	movl	$1, -4(%rsp)
 	xorl	%eax, %eax
 	retq
 .Lfunc_end0:

@@ -116,6 +116,15 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyGrammerParser#repetitions.
+    def enterRepetitions(self, ctx:MyGrammerParser.RepetitionsContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#repetitions.
+    def exitRepetitions(self, ctx:MyGrammerParser.RepetitionsContext):
+        pass
+
+
     # Enter a parse tree produced by MyGrammerParser#Equal.
     def enterEqual(self, ctx:MyGrammerParser.EqualContext):
         pass
@@ -134,12 +143,12 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyGrammerParser#ifbody.
-    def enterIfbody(self, ctx:MyGrammerParser.IfbodyContext):
+    # Enter a parse tree produced by MyGrammerParser#body.
+    def enterBody(self, ctx:MyGrammerParser.BodyContext):
         pass
 
-    # Exit a parse tree produced by MyGrammerParser#ifbody.
-    def exitIfbody(self, ctx:MyGrammerParser.IfbodyContext):
+    # Exit a parse tree produced by MyGrammerParser#body.
+    def exitBody(self, ctx:MyGrammerParser.BodyContext):
         pass
 
 

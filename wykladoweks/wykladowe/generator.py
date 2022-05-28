@@ -1,9 +1,11 @@
 class Generator:
     header_text = ''
     main_text = ''
+    main_tmp = 1;
     reg = 1
     br = 1
     brstack = []
+    buff = ''
 
     def what_type(self, type):
         #print(type)
@@ -108,40 +110,77 @@ class Generator:
         leng = len(id_) + 1            
         self.main_text += "%" + str(self.reg) + " = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([" + str(leng) + "] x i8], [" + str(leng) + "] x i8]* @.str, i64 0, i64 0))\n"
         self.reg += 1
+    
+    def function_start(self, id_):
+        self.buff += ";;;functionstart\n"
+        self.main_text += self.buff
+        self.main_tmp = self.reg
+        self.buff = "define i32 @"+str(id_)+"() nounwind {\n"
+        self.reg = 1
 
- #   def if_declare(self, id_):
-  #      self.main_text += ";;;ifstart\n"
-   #     self.br += 1
-    #    self.main_text += "br i1 %" + str(self.reg - 1) + ", label %true" + str(self.reg) + ", label %false" + str(self.reg) + "\n"
-     #   self.main_text += "true" + str(self.br) + ":\n"
-      #  self.bufferstack.append(self.br)
-	
+    def function_end():
+        self.buff += ";;;functionend\n"
+        self.buff += "ret i32 %"+(self.reg-1)+"\n"
+        self.buff += "}\n"
+        self.header_text += self.buff
+        self.buff = ""
+        self.reg = self.main_tmp
+   
+    def loop_start(self, rep):
+      self.buff += ";;;repeatstart\n"
+      #declare(Integer.toString(reg), false, VarType.INT);
+      counter = self.reg
+      self.reg += 1
+      #assign("%"+Integer.toString(counter), "0", VarType.INT);
+      self.br += 1
+      self.buff += "br label %cond"+str(br)+"\n"
+      self.buff += "cond"+str(br)+":\n"
+      # TO DO
+      #load_i32("%" + counter);
+      #add_i32("%"+(reg-1), "1");
+      #assign("%"+Integer.toString(counter), "%"+(reg-1), VarType.INT);
+      # 
+      self.buff += "%"+str(reg)+" = icmp slt i32 %"+str(reg-2)+", "+str(rep)+"\n"
+      self.reg += 1
+      self.buff += "br i1 %"+str(reg-1)+", label %true"+str(br)+", label %false"+str(br)+"\n"
+      self.buff += "true"+str(self.br)+":\n"
+      self.brstack.append(self.br)
+
+    def loop_end(self):
+        self.buff += ";;;repeatend\n"
+        b = brstack.pop()
+        self.buff += "br label %cond"+str(b)+"\n"
+        self.buff += "false"+str(b)+":\n" 
+    
     def icmp_eq(self, id, value):
-        self.main_text += "%" + str(self.reg) + " = load i32, i32* %" + str(id) + "\n";
+        self.main_text += "%" + str(self.reg) + " = load i32, i32* %" + str(id) + "\n"
         self.reg += 1
-        self.main_text += "%" + str(self.reg) + " = icmp eq i32 %" + str((self.reg-1)) + ", " + str(value) + "\n";
+        self.main_text += "%" + str(self.reg) + " = icmp eq i32 %" + str((self.reg-1)) + ", " + str(value) + "\n"
         self.reg += 1
     
     def icmp_ne(self, id, value):
-        self.main_text += "%" + str(self.reg) + " = load i32, i32* %" + str(id) + "\n";
+        self.main_text += "%" + str(self.reg) + " = load i32, i32* %" + str(id) + "\n"
         self.reg += 1
-        self.main_text += "%" + str(self.reg) + " = icmp ne i32 %" + str((self.reg-1)) + ", " + str(value) + "\n";
+        self.main_text += "%" + str(self.reg) + " = icmp ne i32 %" + str((self.reg-1)) + ", " + str(value) + "\n"
         self.reg += 1
 
     def if_start(self):
         self.br += 1
-        self.main_text += "br i1 %"+str(self.reg-1)+", label %true"+str(self.br)+", label %false"+str(self.br)+"\n";
-        self.main_text += "true"+str(self.br)+":\n";
-        self.brstack.append(self.br);
+        self.main_text += "br i1 %"+str(self.reg-1)+", label %true"+str(self.br)+", label %false"+str(self.br)+"\n"
+        self.main_text += "true"+str(self.br)+":\n"
+        self.brstack.append(self.br)
 
     def if_end(self):
         b = self.brstack.pop();
-        self.main_text += "br label %false"+str(b)+"\n";
-        self.main_text += "false"+str(b)+":\n";    
+        self.main_text += "br label %false"+str(b)+"\n"
+        self.main_text += "false"+str(b)+":\n"
     
-  #  def if(self, id, value, type):
-  #      self.main_text += f"%{self.reg} = icmp eq {self.what_type(type)} {id}, {value}\n"
-  #      self.reg += 1
+    def declare(self, id_, is_global, type):
+        buff += ";;;declare\n"
+        if isGlobal == True:
+            self.header_text += f"@"+id_+" = global {self.what_type(type)} 0\n"
+        else:
+            self.buff += f"%"+id_+" = alloca {self.what_type(type)}\n"
     
     def generate(self):
         txt = ''

@@ -28,39 +28,30 @@ class MyVisitor(MyGrammerVisitor):
     def visitExprComm(self, ctx):
         a = self.visitChildren(ctx)
         return a
-
+    
+    def visitLoop(self, ctx):
+    	print('visit loop')
+    	return
+    
     def visitIf(self, ctx):
-        print("visit if")
+        print('visit if')
         a = self.visitChildren(ctx)
         self.generator.if_start()
         self.generator.if_end()
-        
-        
-        #print(a)
-        #print(str(ctx.s))
-        #print(str(ctx.e))
-        #print(str(ctx.i))
-        #print(str(ctx.n))
-        
-       # self.generator.if_declare(self)
-        #ctx.IF()
-        #ctx.statement()
         return
 
     def visitEqual(self, ctx):
-        print("visit equal")
+        print('visit equal')
         id_, _ = self.visit(ctx.id_())
         val, _ = self.visit(ctx.if_val())
         self.generator.icmp_eq(id_, val)
-        print("visit equal end")        
         return 0
     
     def visitNotEqual(self, ctx):
-        print("visit not equal")
+        print('visit not equal')
         id_, _ = self.visit(ctx.id_())
         val, _ = self.visit(ctx.if_val())
         self.generator.icmp_ne(id_, val)
-        print("visit not equal end")        
         return 0
 
     def visitFunctExpr(self, ctx):
